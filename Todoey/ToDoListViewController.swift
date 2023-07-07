@@ -12,7 +12,7 @@ class ToDoListViewController: UITableViewController {
 
     @IBOutlet weak var navigationBar: UINavigationItem!
     
-    let itemArray = ["one","two","three"]
+    var itemArray = ["one","two","three"]
     
     override func viewWillAppear(_ animated: Bool) {
         let navBarAppearance = UINavigationBarAppearance()
@@ -62,6 +62,29 @@ class ToDoListViewController: UITableViewController {
         
     }
     
-
+    //MARK: - Add new Items
+    
+    @IBAction func addButtonPressed(_ sender: UIBarButtonItem) {
+        var textField = UITextField()
+        
+        let alert = UIAlertController(title: "Add new Todoey Item", message: "", preferredStyle: .alert)
+        let action = UIAlertAction(title: "Add Item", style: .default) {(action) in
+            // what will happen once the user click the add item button on our UIAlert
+            self.itemArray.append(textField.text!)
+            self.tableView.reloadData()
+        }
+        
+       
+        
+        alert.addTextField { (alertTextField) in
+            alertTextField.placeholder = "Create new item"
+            textField = alertTextField
+            
+        }
+        
+        alert.addAction(action)
+        
+        present(alert,animated: true,completion: nil)
+    }
 }
 
